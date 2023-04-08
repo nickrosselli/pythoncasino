@@ -1,18 +1,15 @@
-# helpers.py
+# imported modules
 import json
+import random
+import sqlite3
+from sqlite3 import Error
 
-# Open JSON file
 f = open("./config.json")
-
-# Return JSON data as a dictionary
 conf = json.load(f)
-
-# Close JSON file
 f.close()
 
-
 # Functions
-#-----------#
+#--------------#
 # inputted data
 def getString(prompt):
     value = ""
@@ -44,7 +41,38 @@ def getFloat(prompt):
             print(conf['invalidFloat'])
     return value
 
-# testing
-# if __name__=="__main__":
-#     val=getString("Enter a string: ")
-#     print(f"{type(val)} is: {val}")
+# casino functions
+def createDeck():
+    deck = []
+    suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades']
+    values = list(range(2, 11)) + ['J', 'Q', 'K', 'A']
+    for suit in suits:
+        for value in values:
+            deck.append(f"{value} of {suit}")
+    random.shuffle(deck)
+    return deck
+
+def calculateHand(hand):
+    total = 0
+    for card in hand: 
+        if isinstance(card, int):
+            total += card
+        elif card in ['J', 'Q', 'K']:
+            total += 10
+        elif card == 'A':
+            if total + 11 > 21:
+                total += 1
+            else: total += 11
+    return total
+
+# database 
+def createConnection(dbfile):
+    connection = None
+    try:
+        connection = sqlite3.connect(dbfile)
+        print(sqlite3.version)
+    except Error:
+        print(Error)
+    finally:
+        if connection:
+            connection.close()
