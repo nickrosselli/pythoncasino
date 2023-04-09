@@ -8,4 +8,4 @@ i.e.: `cd Desktop/pythoncasino`
 
 2. Run `python3 src/casino.py` in your terminal
 
-3. Choose option `1` from the list and enjoy!
+3. Choose option 1 from the list and enjoy!
