@@ -1,5 +1,8 @@
 {
     "emptyEntry": "Your entry cannot be empty. Please try again!",
     "invalidInt": "That is not an integer. Please try again!",
-    "invalidFloat": "That is not a valid decimal number. Please try again!"
+    "invalidFloat": "That is not a valid decimal number. Please try again!",
+    "outOfMoney": "You are out of money. Sorry!",
+    "youLose": "Dealer wins. You LOSE :(",
+    "youWin": "You win! Congratulations!"
 }
