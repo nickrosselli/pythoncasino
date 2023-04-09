@@ -1,8 +1,6 @@
 # imported modules
 import json
 import random
-import sqlite3
-from sqlite3 import Error
 
 f = open("./config.json")
 conf = json.load(f)
@@ -54,25 +52,17 @@ def createDeck():
 
 def calculateHand(hand):
     total = 0
-    for card in hand: 
-        if isinstance(card, int):
-            total += card
-        elif card in ['J', 'Q', 'K']:
+    aces = 0
+    for card in hand:
+        if card.split()[0].isdigit():
+            total += int(card.split()[0])
+        elif card.split()[0] in ['J', 'Q', 'K']:
             total += 10
-        elif card == 'A':
-            if total + 11 > 21:
-                total += 1
-            else: total += 11
+        elif card.split()[0] == 'A':
+            aces += 1
+    for i in range(aces):
+        if total + 11 <= 21:
+            total += 11
+        else:
+            total += 1
     return total
-
-# database 
-def createConnection(dbfile):
-    connection = None
-    try:
-        connection = sqlite3.connect(dbfile)
-        print(sqlite3.version)
-    except Error:
-        print(Error)
-    finally:
-        if connection:
-            connection.close()
